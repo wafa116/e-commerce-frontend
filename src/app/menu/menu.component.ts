@@ -37,11 +37,13 @@ export class MenuComponent implements OnInit{
         sessionStorage.setItem('token', '');
         sessionStorage.setItem('isConnected', 'false');
         this.menuManagerService.router.navigateByUrl('/home');
+        this.menuManagerService.userStoreService.resetUser();
       },
       error: () => {
         sessionStorage.setItem('token', '');
         sessionStorage.setItem('isConnected', 'false');
         this.menuManagerService.router.navigateByUrl('/home');
+        this.menuManagerService.userStoreService.resetUser();
       }
     });
   }

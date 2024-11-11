@@ -17,12 +17,13 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppFormErrorStateMatcher } from '../core/models/form-errors-state-matcher';
 import { UsersService } from '../core/services/http/users.service';
 import { UserModel } from '../core/models/user.model';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-account',
   standalone: true,
   imports: [FormsModule, MatFormFieldModule, MatInputModule, ReactiveFormsModule,
-    MatButtonModule, MatDividerModule, MatIconModule, HttpClientModule
+    MatButtonModule, MatDividerModule, MatIconModule, HttpClientModule, RouterModule
   ],
   providers: [AccountManagerService, UsersService],
   templateUrl: './account.component.html',
@@ -69,8 +70,7 @@ export class AccountComponent implements OnInit {
     if(this.accountForm.valid){
       const value = this.accountForm.value;
       this.accountManagerService.usersService.saveUserChanges(value as UserModel).subscribe((user) => {
-        console.log(user)
-        console.log('saved!')
+        this.accountManagerService.router.navigateByUrl('/home');
       });
     }
     
