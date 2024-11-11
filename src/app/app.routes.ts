@@ -4,4 +4,8 @@ import { AccountComponent } from './account/account.component';
 export const routes: Routes = [{
     path: 'account',
     component: AccountComponent
+}, {
+    path: '',
+    redirectTo: 'account',
+    pathMatch: 'full'
 }];
