@@ -8,8 +8,8 @@ export class UsersService {
     private apiPath = "http://localhost:3000/api/v1";
     constructor(private http: HttpClient){}
  
-    getUsers(): Observable<UserModel[]>{
-        return this.http.get<UserModel[]>(this.apiPath+"/users");
+    getUser(email: string): Observable<UserModel>{
+        return this.http.get<UserModel>(this.apiPath+`/users/${email}`);
     }
 
     saveUserChanges(user: UserModel): Observable<any> {

@@ -1,0 +1,47 @@
+<form class="example-form" [formGroup]="registerForm" (submit)="register()">
+    @if (errorMessage) {
+        <p class="error-message">
+          {{errorMessage}}
+        </p>
+    }
+    <p>
+        <mat-form-field class="example-full-width">
+            <mat-label>Email</mat-label>
+            <input type="email" matInput formControlName="email" [errorStateMatcher]="matcher"
+                   placeholder="Ex. pat@example.com">
+            @if (emailFormControl.hasError('email') && !emailFormControl.hasError('required')) {
+              <mat-error>Please enter a valid email address</mat-error>
+            }
+            @if (emailFormControl.hasError('required')) {
+              <mat-error>Email is <strong>required</strong></mat-error>
+            }
+          </mat-form-field>
+    </p>
+    <p>
+        <mat-form-field class="example-full-width">
+            <mat-label>Password</mat-label>
+            <input type="password" matInput formControlName="password" [errorStateMatcher]="matcher">
+           
+            @if (passwordFormControl.hasError('required')) {
+              <mat-error>Password is <strong>required</strong></mat-error>
+            }
+          </mat-form-field>
+    </p>
+    <p>
+        <mat-form-field class="example-full-width">
+            <mat-label>Confirm Password</mat-label>
+            <input type="password" matInput formControlName="confirmPassword" [errorStateMatcher]="matcher">
+           
+            @if (confirmPasswordFormControl.hasError('required')) {
+              <mat-error>Confirm Password is <strong>required</strong></mat-error>
+            }
+            
+          </mat-form-field>
+    </p>
+    
+    <section>
+        <div class="example-button-row">
+          <button type="submit" mat-flat-button [disabled]="registerForm.invalid">Register Now</button>
+        </div>
+      </section>
+</form>

@@ -7,7 +7,23 @@
     <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
         <mat-icon>favorite</mat-icon>
     </button>
-    <button mat-icon-button class="example-icon" aria-label="Example icon-button with account_circle icon">
-        <mat-icon (click)="openLink('account')">account_circle</mat-icon>
+
+    
+
+    <button mat-icon-button class="example-icon" aria-label="Example icon-button with account_circle icon" [matMenuTriggerFor]="menu">
+        <mat-icon>account_circle</mat-icon>
     </button>
+    
+    <mat-menu #menu="matMenu">
+        @if (menuManagerService.authService.isConnected()) {
+            <button mat-menu-item (click)="openLink('account')">Account</button>
+            <button mat-menu-item (click)="logout()">Sign Out</button>
+        } 
+        @else {
+            <button mat-menu-item (click)="openLink('login')">Sign In</button>
+            <button mat-menu-item (click)="openLink('register')">Register</button>
+        }
+    </mat-menu>
+
+    <span class="profile-name">{{user?.firstname}} {{user?.lastname}}</span>
 </mat-toolbar>

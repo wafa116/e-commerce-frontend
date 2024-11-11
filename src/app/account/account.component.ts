@@ -43,9 +43,13 @@ export class AccountComponent implements OnInit {
 
   ngOnInit(): void {
     this.initForm();
-    this.accountManagerService.usersService.getUsers().subscribe(data => {
-      console.log(data)
-    });
+    if(this.accountManagerService.activatedRoute.snapshot.params && this.accountManagerService.activatedRoute.snapshot.params['email']){
+     const email = this.accountManagerService.activatedRoute.snapshot.params['email'];
+     this.initFormData(email)
+    } else {
+      const email = sessionStorage.getItem('email');
+      
+    }
   }
 
   private initForm(): void {
@@ -57,10 +61,15 @@ export class AccountComponent implements OnInit {
     this.accountForm.addControl('postalCode', this.postalCodeFormControl);
   }
 
+  private initFormData(email: string): void {
+    this.emailFormControl.setValue(email);
+  }
+
   saveChanges(): void {
     if(this.accountForm.valid){
       const value = this.accountForm.value;
-      this.accountManagerService.usersService.saveUserChanges(value as UserModel).subscribe(() => {
+      this.accountManagerService.usersService.saveUserChanges(value as UserModel).subscribe((user) => {
+        console.log(user)
         console.log('saved!')
       });
     }
