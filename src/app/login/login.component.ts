@@ -28,7 +28,7 @@ export class LoginComponent {
 
   matcher = new AppFormErrorStateMatcher();
 
-  constructor(private loginManagerService: LoginManagerService){}
+  constructor(private manager: LoginManagerService){}
 
   ngOnInit(): void {
     this.initForm();
@@ -43,15 +43,15 @@ export class LoginComponent {
     this.errorMessage = '';
     if(this.loginForm.valid){
       const loginModel: LoginModel = this.loginForm.value  as LoginModel;
-      this.loginManagerService.authService.login(loginModel).subscribe({
+      this.manager.authService.login(loginModel).subscribe({
         next: res => {
           sessionStorage.setItem('token', res.token)
           sessionStorage.setItem('isConnected', 'true')
-          this.loginManagerService.usersService.getUser(loginModel.email)
+          this.manager.usersService.getUser(loginModel.email)
           .subscribe({
             next: user => {
-              this.loginManagerService.userStoreService.setUser(user);
-              this.loginManagerService.router.navigateByUrl('/home')
+              this.manager.userStoreService.setUser(user);
+              this.manager.router.navigateByUrl('/home')
             },
             error: error => {
               

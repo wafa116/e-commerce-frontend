@@ -40,12 +40,12 @@ export class AccountComponent implements OnInit {
 
   matcher = new AppFormErrorStateMatcher();
 
-  constructor(private accountManagerService: AccountManagerService){}
+  constructor(private manager: AccountManagerService){}
 
   ngOnInit(): void {
     this.initForm();
-    if(this.accountManagerService.activatedRoute.snapshot.params && this.accountManagerService.activatedRoute.snapshot.params['email']){
-     const email = this.accountManagerService.activatedRoute.snapshot.params['email'];
+    if(this.manager.activatedRoute.snapshot.params && this.manager.activatedRoute.snapshot.params['email']){
+     const email = this.manager.activatedRoute.snapshot.params['email'];
      this.initFormData(email)
     } else {
       const email = sessionStorage.getItem('email');
@@ -69,8 +69,8 @@ export class AccountComponent implements OnInit {
   saveChanges(): void {
     if(this.accountForm.valid){
       const value = this.accountForm.value;
-      this.accountManagerService.usersService.saveUserChanges(value as UserModel).subscribe((user) => {
-        this.accountManagerService.router.navigateByUrl('/home');
+      this.manager.usersService.saveUserChanges(value as UserModel).subscribe((user) => {
+        this.manager.router.navigateByUrl('/home');
       });
     }
     

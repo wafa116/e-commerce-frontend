@@ -28,7 +28,7 @@ export class RegisterComponent implements OnInit{
 
   matcher = new AppFormErrorStateMatcher();
 
-  constructor(private registerManagerService: RegisterManagerService){}
+  constructor(private manager: RegisterManagerService){}
 
   ngOnInit(): void {
     this.initForm();
@@ -45,9 +45,9 @@ export class RegisterComponent implements OnInit{
     
     if(this.registerForm.valid){
       const value = this.registerForm.value;
-      this.registerManagerService.authService.register(value as RegisterModel).subscribe({
+      this.manager.authService.register(value as RegisterModel).subscribe({
         next: (register: any) => {
-          this.registerManagerService.router.navigate(['/account', register.email]);
+          this.manager.router.navigate(['/account', register.email]);
         },
         error: error => {
           this.errorMessage = error && error.error && error.error.message || 'Unknown error while registring!';

@@ -1,0 +1,16 @@
+<mat-card class="example-card" appearance="outlined">
+    <mat-card-header>
+      <div mat-card-avatar ></div>
+      <mat-card-title>{{product.label}}</mat-card-title>
+    </mat-card-header>
+    <img mat-card-image src="electronics/{{product.name}}.PNG" alt="Photo of a product">
+    <mat-card-content>
+      <p>
+        {{product.description}}
+      </p>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-button>LIKE</button>
+      <button mat-button>SHARE</button>
+    </mat-card-actions>
+  </mat-card>

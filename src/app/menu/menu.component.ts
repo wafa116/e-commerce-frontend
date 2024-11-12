@@ -19,31 +19,31 @@ import { AuthService } from '../core/services/http/auth.service';
 export class MenuComponent implements OnInit{
   user?: UserModel;
 
-  constructor(public menuManagerService: MenuManagerService){}
+  constructor(public manager: MenuManagerService){}
 
   ngOnInit(): void {
-    this.menuManagerService.userStoreService.store.select((state: any) => state.user.account).subscribe(user => {
+    this.manager.userStoreService.store.select((state: any) => state.user.account).subscribe(user => {
       this.user = user;
     })
   }
 
   openLink(path: string): void {
-    this.menuManagerService.router.navigateByUrl(path);
+    this.manager.router.navigateByUrl(path);
   }
 
   logout(): void {
-    this.menuManagerService.authService.logout().subscribe({
+    this.manager.authService.logout().subscribe({
       next: () => {
         sessionStorage.setItem('token', '');
         sessionStorage.setItem('isConnected', 'false');
-        this.menuManagerService.router.navigateByUrl('/home');
-        this.menuManagerService.userStoreService.resetUser();
+        this.manager.router.navigateByUrl('/home');
+        this.manager.userStoreService.resetUser();
       },
       error: () => {
         sessionStorage.setItem('token', '');
         sessionStorage.setItem('isConnected', 'false');
-        this.menuManagerService.router.navigateByUrl('/home');
-        this.menuManagerService.userStoreService.resetUser();
+        this.manager.router.navigateByUrl('/home');
+        this.manager.userStoreService.resetUser();
       }
     });
   }

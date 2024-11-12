@@ -15,7 +15,7 @@
     </button>
     
     <mat-menu #menu="matMenu">
-        @if (menuManagerService.authService.isConnected()) {
+        @if (manager.authService.isConnected()) {
             <button mat-menu-item (click)="openLink('account')">Account</button>
             <button mat-menu-item (click)="logout()">Sign Out</button>
         } 
